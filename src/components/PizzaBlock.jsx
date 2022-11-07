@@ -19,13 +19,13 @@ const typeNames = [
             <ul>
 
                 {types.map((t, i) => (
-                    <li onClick={()=> {setActiveType(i)}} className={activeTypes === i ? 'active' : ''}>{typeNames[t]}</li>
+                    <li key={i} onClick={()=> {setActiveType(i)}} className={activeTypes === i ? 'active' : ''}>{typeNames[t]}</li>
                 ))}
             </ul>
             <ul>
                 {
                     sizes.map((size,i) => (
-                        <li onClick={()=>{setActiveSize(i)}} className={activeSize === i ? 'active' : ''}> {size} см. </li>
+                        <li key={i} onClick={()=>{setActiveSize(i)}} className={activeSize === i ? 'active' : ''}> {size} см. </li>
                     ))
                 }
             </ul>
