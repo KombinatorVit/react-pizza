@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export function PizzaBlock({title, price, imageUrl, sizes,types}){
+export function PizzaBlock({name, price, imageUrl, sizes,types}){
     const[activeTypes, setActiveType] = useState(0)
     const[activeSize, setActiveSize] = useState(0)
 const typeNames = [
@@ -15,7 +15,7 @@ const typeNames = [
                 src={imageUrl}
                 alt="Pizza"
             />
-            <h4 className="pizza-block__title">{title}</h4>
+            <h4 className="pizza-block__title">{name}</h4>
             <div className="pizza-block__selector">
                 <ul>
 
