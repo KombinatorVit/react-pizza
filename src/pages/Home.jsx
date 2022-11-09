@@ -6,11 +6,14 @@ import {PizzaBlock} from "../components/PizzaBlock/PizzaBlock";
 import {useEffect, useState} from "react";
 import {Pagination} from "../components/Pagination";
 import {SearchContext} from "../App";
+import {useSelector} from "react-redux";
 
 export const Home = ({}) => {
+
+    const categoryId = useSelector(state => state.filter.categoryId)
+
     const[items, setItems] = useState([])
     const[isLoading, setIsLoading] = useState(true)
-    const [categoryId, setCategoryId] = useState(0)
     const [sortType, setSortType] = useState({
         name: 'Популярности', sortProperty: 'rating'
     })
@@ -56,10 +59,3 @@ const [currentPage, setCurrentPage]= useState(1)
 
 
 
-// сортировка на фронте, если данные моей пиццы статичны
-// .filter((el) => {
-//     if(el.name.toLowerCase().includes(searchValue.toLowerCase())){
-//         return true
-//     }
-//     return false
-// })
