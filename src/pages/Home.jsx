@@ -6,36 +6,42 @@ import {PizzaBlock} from "../components/PizzaBlock/PizzaBlock";
 import {useEffect, useState} from "react";
 import {Pagination} from "../components/Pagination";
 import {SearchContext} from "../App";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setCategoryId} from "../redux/slices/filterSlice";
 
 export const Home = ({}) => {
 
-    const categoryId = useSelector(state => state.filter.categoryId)
+    const {categoryId, sort} = useSelector(state => state.filter)
+    const sortType = sort.sortProperty
+    const dispatch = useDispatch()
 
-    const[items, setItems] = useState([])
-    const[isLoading, setIsLoading] = useState(true)
-    const [sortType, setSortType] = useState({
-        name: 'Популярности', sortProperty: 'rating'
-    })
-const [currentPage, setCurrentPage]= useState(1)
+    const [items, setItems] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
-    const{searchValue } = useContext(SearchContext)
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const {searchValue} = useContext(SearchContext)
 
 
-    useEffect(()=> {
+    const onChangeCategory = (id) => {
+        dispatch(setCategoryId(id))
+    }
+
+    useEffect(() => {
         setIsLoading(true)
-        const sortBy = sortType.sortProperty.replace('-', '');
-        const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
-        const category = categoryId > 0 ? `category=${categoryId}`: '';
-        const search = searchValue  ? `search=${searchValue}`: '';
+        const sortBy = sortType.replace('-', '');
+        const order = sortType.includes('-') ? 'asc' : 'desc'
+        const category = categoryId > 0 ? `category=${categoryId}` : '';
+        const search = searchValue ? `search=${searchValue}` : '';
 
-        fetch(`https://6369227915219b8496105d27.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`).then((res)=>{
+        fetch(`https://6369227915219b8496105d27.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`).then((res) => {
             return res.json()
         })
             .then((arr) => {
                 setItems(arr)
-                setIsLoading(false)})
-        window.scrollTo(0,0)
+                setIsLoading(false)
+            })
+        window.scrollTo(0, 0)
     }, [categoryId, sortType, searchValue, currentPage])
 
     const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
@@ -43,16 +49,16 @@ const [currentPage, setCurrentPage]= useState(1)
     return (
         <div className="container">
             <div className="content__top">
-                <Categories value={categoryId} onClickCategory={(i)=>setCategoryId(i)}/>
-                <Sort value={sortType} onClickSortType={(i)=>setSortType(i)}/>
+                <Categories value={categoryId} onChangeCategory={onChangeCategory}/>
+                <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {
                     isLoading
-                        ? [...new Array(6)].map((_, i)=> <Skeleton key={i}/>) : pizzas}
+                        ? [...new Array(6)].map((_, i) => <Skeleton key={i}/>) : pizzas}
             </div>
-            <Pagination  currentPage={currentPage} onChangePage={(number)=> setCurrentPage(number)} />
+            <Pagination currentPage={currentPage} onChangePage={(number) => setCurrentPage(number)}/>
         </div>
     );
 };

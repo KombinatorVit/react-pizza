@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export function Categories({value, onClickCategory}) {
+export function Categories({value, onChangeCategory}) {
     console.log(value)
     const categories = ['Все',
         'Мясные',
@@ -16,7 +16,7 @@ export function Categories({value, onClickCategory}) {
             <ul>
                 {categories.map((categoryName, i) => (
                     <li key={i} onClick={() => {
-                        onClickCategory(i)
+                        onChangeCategory(i)
                     }} className={value === i ? 'active' : ''}>{categoryName}
                     </li>
                 ))}

@@ -9,23 +9,21 @@ const initialState = {
 }
 
 
-export const filterSlice = createSlice({
-    name: 'filter',
+ const filterSlice = createSlice({
+    name: 'filters',
     initialState,
     reducers: {
 
  setCategoryId(state,action){
     state.categoryId = action.payload
             },
-        decrement: state => {
-            state.value -= 1
-        },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload
+
+        setSort(state,action){
+            state.sort = action.payload
         }
     }
 })
 
-export const {setCategoryId } = filterSlice.actions
+export const {setCategoryId, setSort } = filterSlice.actions
 
 export default filterSlice.reducer
