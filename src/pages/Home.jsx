@@ -38,7 +38,7 @@ export const Home = ({}) => {
     }
 
 
-    const fetchPizzas = () => {
+    const fetchPizzas = async () => {
         setIsLoading(true)
         const sortBy = sortType.replace('-', '');
         const order = sortType.includes('-') ? 'asc' : 'desc'
@@ -46,14 +46,20 @@ export const Home = ({}) => {
         const search = searchValue ? `search=${searchValue}` : '';
 
 
-        axios.get(`https://6369227915219b8496105d27.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`).then(res => {
-            setItems(res.data)
-            setIsLoading(false)
-        })
+        // await axios.get(`https://6369227915219b8496105d27.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`).then(res => {
+        //     setItems(res.data)
+        //     setIsLoading(false)
+        // })
+
+
+        const res = await axios.get(`https://6369227915219b8496105d27.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`)
+
+        setItems(res.data)
+        setIsLoading(false)
     }
 
     useEffect(() => {
-        if(isMounted.current){
+        if (isMounted.current) {
             const queryString = qs.stringify({
                 sortProperty: sort.sortProperty,
                 categoryId,
@@ -83,7 +89,6 @@ export const Home = ({}) => {
         }
         isSearch.current = false
     }, [categoryId, sortType, searchValue, currentPage])
-
 
 
     const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
