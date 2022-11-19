@@ -1,30 +1,45 @@
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSort} from "../redux/slices/filterSlice";
 
 
 export const sortlist = [
-    {name:'популярности (DESC)', sortProperty: 'rating'},
-    {name:'популярности (ASC)', sortProperty: '-rating'},
-    {name:'цене (DESC)', sortProperty: 'price'},
-    {name:'цене (ASC)', sortProperty: '-price'},
-    {name:'алфавиту (DESC)', sortProperty: 'title'},
-    {name:'алфавиту (ASC)', sortProperty: '-title'}
+    {name: 'популярности (DESC)', sortProperty: 'rating'},
+    {name: 'популярности (ASC)', sortProperty: '-rating'},
+    {name: 'цене (DESC)', sortProperty: 'price'},
+    {name: 'цене (ASC)', sortProperty: '-price'},
+    {name: 'алфавиту (DESC)', sortProperty: 'title'},
+    {name: 'алфавиту (ASC)', sortProperty: '-title'}
 ]
+
 export function Sort() {
-    const sort = useSelector(state => state.filter.sort )
-
+    const sort = useSelector(state => state.filter.sort)
+    const sortRef = useRef()
     const dispatch = useDispatch()
-
 
     const [open, setOpen] = useState(false)
     const onClickListItem = (obj) => {
-dispatch(setSort(obj))
+        dispatch(setSort(obj))
         setOpen(false)
     }
 
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (event.path.includes(sortRef.current)) {
+                console.log('Был клик на сорт ')
+            }
+        }
+
+        document.body.addEventListener('click',handleClickOutside)
+return ()=> {
+    document.body.removeEventListener('click',handleClickOutside)
+
+}
+
+    }, [])
     return (
-        <div className="sort">
+        <div ref={sortRef} className="sort">
             <div className="sort__label">
                 <svg
                     width="10"
@@ -47,7 +62,8 @@ dispatch(setSort(obj))
                         sortlist.map((list, i) => (
                             <li onClick={() => {
                                 onClickListItem(list)
-                            }} key={i} className={sort.sortProperty === list.sortProperty ? 'active' : ''}>{list.name}</li>
+                            }} key={i}
+                                className={sort.sortProperty === list.sortProperty ? 'active' : ''}>{list.name}</li>
                         ))
                     }
                 </ul>
