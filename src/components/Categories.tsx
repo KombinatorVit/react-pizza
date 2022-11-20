@@ -1,14 +1,18 @@
-import {useState} from "react";
+import {FC} from 'react';
 
-export function Categories({value, onChangeCategory}) {
-    console.log(value)
+
+type CategoriesPropsType = {
+    value: number
+    onChangeCategory: (i:number) => void
+}
+
+export const Categories: FC<CategoriesPropsType> = ({value, onChangeCategory}) => {
     const categories = ['Все',
         'Мясные',
         'Вегетарианская',
         'Гриль',
         'Острые',
-        'Закрытые',]
-
+        'Закрытые',];
 
 
     return (
@@ -16,12 +20,12 @@ export function Categories({value, onChangeCategory}) {
             <ul>
                 {categories.map((categoryName, i) => (
                     <li key={i} onClick={() => {
-                        onChangeCategory(i)
+                        onChangeCategory(i);
                     }} className={value === i ? 'active' : ''}>{categoryName}
                     </li>
                 ))}
 
             </ul>
         </div>
-    )
-}
+    );
+};

@@ -1,5 +1,4 @@
 import './scss/app.scss';
-// noinspection ES6CheckImport
 import {
     Route,
     Routes
@@ -7,8 +6,8 @@ import {
 import {Home} from "./pages/Home";
 import {NotFoundBlock} from "./components/NotFoundBlock";
 import {Cart} from "./pages/Cart";
-import {FullPizza} from "./pages/FullPizza";
 import MainLayout from "./layouts/MainLayout";
+import FullPizza from './pages/FullPizza';
 
 
 function App() {
