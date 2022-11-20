@@ -8,7 +8,7 @@ import {useEffect} from "react";
 import {Pagination} from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
 import {setCategoryId, setCurrentPage, setFilters} from "../redux/filter/slice";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {fetchPizzas} from "../redux/pizza/asyncActions";
 import {selectPizzaData} from "../redux/pizza/selectors";
 import {selectFilter} from "../redux/filter/selectors";
@@ -23,8 +23,6 @@ export const Home = ({}) => {
     const navigate = useNavigate()
     const isSearch = useRef(false)
     const isMounted = useRef(false)
-
-
 
 
     const onChangeCategory = (id) => {
@@ -84,7 +82,7 @@ export const Home = ({}) => {
     }, [categoryId, sortType, searchValue, currentPage])
 
 
-    const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+    const pizzas = items.map((obj) => <Link key={obj.id} to={`/pizza/${obj.id}`}> <PizzaBlock  {...obj} /></Link>)
     const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index}/>);
 
     return (

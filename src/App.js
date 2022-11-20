@@ -1,5 +1,4 @@
 import './scss/app.scss';
-import {Header} from "./components/Header";
 // noinspection ES6CheckImport
 import {
     Route,
@@ -8,25 +7,27 @@ import {
 import {Home} from "./pages/Home";
 import {NotFoundBlock} from "./components/NotFoundBlock";
 import {Cart} from "./pages/Cart";
+import {FullPizza} from "./pages/FullPizza";
+import MainLayout from "./layouts/MainLayout";
 
 
 function App() {
 
     return (
         <div className="App">
-            <div className="wrapper">
 
-                <Header/>
-                <div className="content">
                     <Routes>
-                        <Route path='/' element={<Home/>}/>
-                        <Route path='/cart' element={<Cart/>}/>
+                        <Route path={'/'} element={<MainLayout/>}>
+                        <Route path='' element={<Home/>}/>
+                        <Route path='cart' element={<Cart/>}/>
+                        <Route path='pizza/:id' element={<FullPizza/>}/>
                         <Route path='*' element={<NotFoundBlock/>}/>
+                        </Route>
                     </Routes>
                 </div>
 
-            </div>
-        </div>
+
+
     );
 }
 
