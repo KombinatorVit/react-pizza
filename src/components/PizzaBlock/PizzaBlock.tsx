@@ -9,7 +9,7 @@ const typeNames = ['тонкое', 'традиционное'];
 
 type PizzaBlockProps = {
     id: string;
-    title: string;
+    name: string;
     price: number;
     imageUrl: string;
     sizes: number[];
@@ -19,7 +19,7 @@ type PizzaBlockProps = {
 
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                                                           id,
-                                                          title,
+                                                          name,
                                                           price,
                                                           imageUrl,
                                                           sizes,
@@ -35,7 +35,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
     const onClickAdd = () => {
         const item: CartItem = {
             id,
-            title,
+            name,
             price,
             imageUrl,
             type: typeNames[activeType],
@@ -50,7 +50,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
             <div className="pizza-block">
                 <Link key={id} to={`/pizza/${id}`}>
                     <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-                    <h4 className="pizza-block__title">{title}</h4>
+                    <h4 className="pizza-block__title">{name}</h4>
                 </Link>
                 <div className="pizza-block__selector">
                     <ul>
@@ -75,7 +75,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                     </ul>
                 </div>
                 <div className="pizza-block__bottom">
-                    <div className="pizza-block__price">от {price} ₽</div>
+                    <div className="pizza-block__price">от {price} ₴</div>
                     <button onClick={onClickAdd} className="button button--outline button--add">
                         <svg
                             width="12"

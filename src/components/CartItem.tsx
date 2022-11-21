@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addItem, minusItem, removeItem } from '../redux/cart/slice';
-import { CartItem as CartItemType } from '../redux/cart/types';
+import {useDispatch} from 'react-redux';
+import {addItem, minusItem, removeItem} from '../redux/cart/slice';
+import {CartItem as CartItemType} from '../redux/cart/types';
+import clsx from 'clsx';
 
 type CartItemProps = {
     id: string;
-    title: string;
+    name: string;
     type: string;
     size: number;
     price: number;
@@ -15,7 +16,7 @@ type CartItemProps = {
 
 export const CartItem: React.FC<CartItemProps> = ({
                                                       id,
-                                                      title,
+                                                      name,
                                                       type,
                                                       size,
                                                       price,
@@ -45,10 +46,10 @@ export const CartItem: React.FC<CartItemProps> = ({
     return (
         <div className="cart__item">
             <div className="cart__item-img">
-                <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+                <img className="pizza-block__image" src={imageUrl} alt="Pizza"/>
             </div>
             <div className="cart__item-info">
-                <h3>{title}</h3>
+                <h3>{name}</h3>
                 <p>
                     {type}, {size} см.
                 </p>
@@ -57,7 +58,7 @@ export const CartItem: React.FC<CartItemProps> = ({
                 <button
                     disabled={count === 1}
                     onClick={onClickMinus}
-                    className="button button--outline button--circle cart__item-count-minus">
+                    className={clsx('button button--outline button--circle cart__item-count-minus', {'cart__item-count-minus-disabled': count === 1})}>
                     <svg
                         width="10"
                         height="10"
@@ -92,7 +93,7 @@ export const CartItem: React.FC<CartItemProps> = ({
                 </button>
             </div>
             <div className="cart__item-price">
-                <b>{price * count} ₽</b>
+                <b>{price * count} UAH</b>
             </div>
             <div className="cart__item-remove">
                 <div onClick={onClickRemove} className="button button--outline button--circle">
