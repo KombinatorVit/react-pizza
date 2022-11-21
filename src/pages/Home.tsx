@@ -29,7 +29,7 @@ export const Home = ({}) => {
         dispatch(setCategoryId(id))
     }
 
-    const onChangePage = (number: any) => {
+    const onChangePage = (number: number) => {
         dispatch(setCurrentPage(number))
     }
 

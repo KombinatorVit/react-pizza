@@ -1,29 +1,33 @@
-import React, {useCallback, useRef, useState} from 'react';
-import styles from './Search.module.scss'
-import debounce from 'lodash.debounce'
-import {useDispatch} from "react-redux";
-import {setSearchValue} from "../../redux/filter/slice";
+import React, {ChangeEvent, FC, useCallback, useRef, useState} from 'react';
+import styles from './Search.module.scss';
+import {useDispatch} from 'react-redux';
+import {setSearchValue} from '../../redux/filter/slice';
+import debounce from 'lodash.debounce';
 
-export const Search = () => {
-    const dispatch = useDispatch()
-    const [value, setValue] = useState('')
-    const inputRef = useRef<HTMLInputElement>(null)
+export const Search: FC = () => {
+    const dispatch = useDispatch();
+    const [value, setValue] = useState('');
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const onClickClear = () => {
-        dispatch(setSearchValue(''))
-        setValue('')
-        inputRef.current.focus()
-    }
+        dispatch(setSearchValue(''));
+        setValue('');
 
-    const updateSearchValue = useCallback(debounce((str) => {
-        dispatch(setSearchValue(str))
-    }, 250), [])
+        if (inputRef.current) {
+            inputRef.current.focus();
+
+        }
+    };
+
+    const updateSearchValue = useCallback(debounce((str: string) => {
+        dispatch(setSearchValue(str));
+    }, 250), []);
 
 
-    const onChangeInput = event => {
-        setValue(event.target.value)
-        updateSearchValue(event.target.value)
-    }
+    const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value);
+        updateSearchValue(event.target.value);
+    };
 
     return (
         <div className={styles.root}>
@@ -62,7 +66,7 @@ export const Search = () => {
             </svg>
             <input ref={inputRef} value={value}
                    onChange={onChangeInput}
-                   className={styles.input} placeholder='Поиск пиццы....'/>
+                   className={styles.input} placeholder="Поиск пиццы...."/>
             {value && (
                 <svg
                     onClick={onClickClear}
