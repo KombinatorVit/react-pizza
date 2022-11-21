@@ -1,23 +1,34 @@
-import React, {FC} from 'react';
-import {useDispatch} from "react-redux";
-import {addItem, minusItem, removeItem} from "../redux/cart/slice";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addItem, minusItem, removeItem } from '../redux/cart/slice';
+import { CartItem as CartItemType } from '../redux/cart/types';
 
-
-type CartItemPropsType = {
+type CartItemProps = {
     id: string;
-    name: string;
+    title: string;
     type: string;
     size: number;
     price: number;
     count: number;
     imageUrl: string;
 };
-export const CartItem: FC<CartItemPropsType> = ({id, name, type, size, price, count, imageUrl}) => {
+
+export const CartItem: React.FC<CartItemProps> = ({
+                                                      id,
+                                                      title,
+                                                      type,
+                                                      size,
+                                                      price,
+                                                      count,
+                                                      imageUrl,
+                                                  }) => {
     const dispatch = useDispatch();
 
     const onClickPlus = () => {
         dispatch(
-            addItem({id}),
+            addItem({
+                id,
+            } as CartItemType),
         );
     };
 
@@ -34,10 +45,10 @@ export const CartItem: FC<CartItemPropsType> = ({id, name, type, size, price, co
     return (
         <div className="cart__item">
             <div className="cart__item-img">
-                <img className="pizza-block__image" src={imageUrl} alt="Pizza"/>
+                <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
             </div>
             <div className="cart__item-info">
-                <h3>{name}</h3>
+                <h3>{title}</h3>
                 <p>
                     {type}, {size} см.
                 </p>
@@ -81,7 +92,7 @@ export const CartItem: FC<CartItemPropsType> = ({id, name, type, size, price, co
                 </button>
             </div>
             <div className="cart__item-price">
-                <b>{price * count} ₴</b>
+                <b>{price * count} ₽</b>
             </div>
             <div className="cart__item-remove">
                 <div onClick={onClickRemove} className="button button--outline button--circle">
@@ -103,4 +114,3 @@ export const CartItem: FC<CartItemPropsType> = ({id, name, type, size, price, co
         </div>
     );
 };
-
