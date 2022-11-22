@@ -1,6 +1,5 @@
 import React, {FC, useCallback} from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 
 
@@ -16,9 +15,7 @@ import {Categories} from '../components/Categories';
 import {Pagination} from '../components/Pagination';
 
 const Home: FC = () => {
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const isMounted = React.useRef(false);
 
     const { items, status } = useSelector(selectPizzaData);
     const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
