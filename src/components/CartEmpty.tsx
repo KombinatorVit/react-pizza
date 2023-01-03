@@ -6,7 +6,7 @@ import cartEmptyImg from '../assets/img/empty-cart.png';
 export const CartEmpty : FC= () => (
     <div className="cart cart--empty">
         <h2>
-            Корзина пустая <span>😕</span>
+            Корзина пустая, увы <span>😕</span>
         </h2>
         <p>
             Вероятней всего, вы не заказывали ещё пиццу.
