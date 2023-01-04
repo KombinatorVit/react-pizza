@@ -11,11 +11,22 @@
     border-radius: 10px;
     font-size: 16px;
 
-&:focus {
-     border: 1px solid rgba(0, 0, 0, 0.2);
- }
+    &:focus {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
 }
-
+@media (max-width: 970px){
+    .input {
+        width: 250px ;
+    }
+}
+@media (max-width: 770px){
+    .input {
+        display: flex;
+        flex-wrap: wrap;
+        width: 250px ;
+    }
+}
 .icon {
     width: 22px;
     height: 22px;
@@ -34,7 +45,7 @@
     top: 15px;
     cursor: pointer;
 
-&:hover {
-     opacity: 0.8;
- }
+    &:hover {
+        opacity: 0.8;
+    }
 }
